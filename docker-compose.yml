@@ -10,30 +10,30 @@ services:
     build:
       context: requirements/mariadb/.
       dockerfile: Dockerfile
-  # #   env_file:
-  # #     - .env
+    # env_file:
+    #      - .env
     # volumes:
     #    - mariadb:/var/lib/mysql
-  #   restart: unless-stopped
+    restart: unless-stopped
     expose:
       - "3306"
 
-  # wordpress:
-  #   image: wordpress
-  #   container_name: wordpress
-  #   networks:
-  #     - inception
-  #   build:
-  #     context: requirements/wordpress/.
-  #     dockerfile: Dockerfile
-  #   env_file: .env
-  #   volumes:
-  #     - wordpress:/var/www/html
+  wordpress:
+    image: wordpress
+    container_name: wordpress
+  # #   networks:
+  # #     - inception
+    build:
+      context: requirements/wordpress/.
+      dockerfile: Dockerfile
+    # env_file: .env
+    volumes:
+      - ./web:/var/www/html
   #   restart: unless-stopped
-  #   depends_on:
-  #     - mariadb
-  #   expose:
-  #     - "80"
+    depends_on:
+      - mariadb
+    # expose:
+    #   - "9000"
 
   nginx:
     image : nginx
@@ -46,14 +46,16 @@ services:
     # env_file:
     #   - .env
     volumes:
-      - ./web:/var/www/wordpress
-    # restart: unless-stopped
-    # depends_on:
-    #   - wordpress
+      - ./web:/var/www/html
+    restart: unless-stopped
+    depends_on:
+      - wordpress
     ports:
       - "443:443"
-
-  # volumes:
+#THE VAR/WWW/HTML HAS TO BE SHARED BETWEEN NGINX AND WP
+# BEACAUSE WE ARE INSTALLING WP TO THE CONTAINER THAT RUNS PHP
+# SO WE NEED TO ACTUALLY ACCESS HOSTING SERVICE (NGINX)TO ACCESS THE WP PAGES
+  #volumes:
   #   mariadb:
   #     driver: local
   #   wordpress:

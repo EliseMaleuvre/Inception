@@ -1,25 +1,29 @@
-server {
-	##
-	# SSL/TLS Settings
-	##
-	listen 443 default_server ssl;
-	listen [::]:443 default_server ssl;
 
-	ssl_protocols TLSv1.2 TLSv1.3;
-	ssl_certificate /etc/nginx/ssl/inception.crt;
-	ssl_certificate_key /etc/nginx/ssl/inception.key;
 
-	# ROOT / INDEX / SERVER_NAME
+	server {
+		# SSL/TLS Settings
+		listen 443 ssl;
+		listen [::]:443 ssl;
 
-	root /var/www/wordpress;
-	server_name elmaleuv.42.fr;
-	index index.php index.html index.htm;
-	location / {
-		try_files $uri $uri/ =404;
+		ssl_protocols TLSv1.2 TLSv1.3;
+		ssl_certificate /etc/nginx/ssl/inception.crt;
+		ssl_certificate_key /etc/nginx/ssl/inception.key;
+
+		# ROOT / INDEX / SERVER_NAME
+
+		root /var/www/html;
+		server_name elmaleuv.42.fr;
+		index index.php index.html index.htm index.nginx-debian.html;
+		# First attempt to serve request as file, then as directory, then fall back to displaying a 404.
+		location / {
+			try_files $uri $uri/ =404;
+		}
+
+	#allows nginx to pass PHP scripts to the FastCGI server. 
+	#nginx uses the unix socket as a fastcgi_pass argument 
+	# modify the other one that is using tcp sockets from 127.0.0.1:9000 to wp-php:9000
+		location ~ \.php$ {
+			include snippets/fastcgi-php.conf;
+			fastcgi_pass wordpress:9000;
+		}
 	}
-
-	# location ~ \.php$ {
-	# 	include snippets/fastcgi-php.conf;
-	# 	fastcgi_pass wordpress:9000;
-	# }
-}
