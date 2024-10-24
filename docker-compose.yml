@@ -5,8 +5,8 @@ services:
   mariadb:
     image: mariadb
     container_name: mariadb
-  #   networks:
-  #     - inception
+    networks:
+       - inception
     build:
       context: requirements/mariadb/.
       dockerfile: Dockerfile
@@ -21,8 +21,8 @@ services:
   wordpress:
     image: wordpress
     container_name: wordpress
-  # #   networks:
-  # #     - inception
+    networks:
+       - inception
     build:
       context: requirements/wordpress/.
       dockerfile: Dockerfile
@@ -32,14 +32,14 @@ services:
   #   restart: unless-stopped
     depends_on:
       - mariadb
-    # expose:
-    #   - "9000"
+    expose:
+      - "9000"
 
   nginx:
     image : nginx
     container_name: nginx
-    # networks :
-    #   - inception
+    networks :
+      - inception
     build:
       context: requirements/nginx/.
       dockerfile: Dockerfile
@@ -61,6 +61,6 @@ services:
   #   wordpress:
   #     driver: local
 
-  # networks:
-  #   inception:
-  #     driver: bridge
+networks:
+    inception:
+      driver: bridge

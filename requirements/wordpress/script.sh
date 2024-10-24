@@ -21,5 +21,6 @@ chmod +x wp-cli.phar
 # Install WordPress
 ./wp-cli.phar core install --url=localhost --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root
 
+
 # Start PHP-FPM
-php-fpm8.2 -F
+php-fpm7.4 -F

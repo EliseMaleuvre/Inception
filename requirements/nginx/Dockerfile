@@ -1,4 +1,4 @@
-FROM debian:latest
+FROM debian:bullseye
 
 # NGINX IS A WEB SERVER & AN INVERSE PROXY SERVER LIGHT OPEN SOURCE SOFTWARE
 # IT IS USED TO SERVE STATIC FILES AND TO REVERSE PROXY TO PHP-FPM
@@ -7,7 +7,7 @@ FROM debian:latest
 
 # BASIC INSTALLATION OF NGINX
 RUN apt-get update 
-RUN apt upgrade 
+RUN apt upgrade -y
 RUN apt install nginx -y
 RUN apt install curl -y 
 RUN apt install vim -y
