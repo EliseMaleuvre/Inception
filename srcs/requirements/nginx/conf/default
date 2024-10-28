@@ -1,6 +1,4 @@
-
-
-	server {
+server {
 		# SSL/TLS Settings
 		listen 443 ssl;
 		listen [::]:443 ssl;
@@ -25,5 +23,6 @@
 		location ~ \.php$ {
 			include snippets/fastcgi-php.conf;
 			fastcgi_pass wordpress:9000;
+			include fastcgi_params;
 		}
-	}
+}

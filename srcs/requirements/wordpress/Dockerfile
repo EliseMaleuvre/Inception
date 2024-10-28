@@ -12,6 +12,9 @@ RUN apt install curl -y
 #    && tar -xzf /latest.tar.gz \
 #    && chown -R root:root /var/www/wordpress
 
+RUN mkdir -p /run/php && chown -R www-data:www-data /run/php
+
+
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/.
 
 
