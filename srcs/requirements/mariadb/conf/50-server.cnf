@@ -5,7 +5,7 @@
 # this is read by the standalone daemon and embedded servers
 # path of the script for configuring our database
 [server]
-init_file = /etc/mysql/init.sql
+#init_file = ./init.sh
 
 # this is only for the mysqld standalone daemon
 [mysqld]

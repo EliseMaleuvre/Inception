@@ -14,10 +14,12 @@ COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # COPY THE INIT SQL SCRIPT CONFIGURATION FILE 
 # INSIDE ETC/MYSQL DIR DURING THE BUILD PROCESS
-COPY tools/init.sql /etc/mysql/init.sql
+COPY tools/init.sh .
+
+RUN chmod +x ./init.sh
 
 # CREATE THE DIRECTORY FOR THE MYSQL SOCKET
-RUN mkdir /run/mysqld
+RUN mkdir /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 # REPLACE MYSQLD_SAFE COMMAND BY MYSQLD SO WE ACTUALLY HAVE MORE DEBUG INFORMATION
-CMD ["mysqld"]
+CMD ["./init.sh"]

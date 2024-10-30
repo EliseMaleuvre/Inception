@@ -2,10 +2,11 @@ SRCS = ./srcs/requirements/nginx/Dockerfile \
 		./srcs/requirements/nginx/conf/default \
 		./srcs/requirements/mariadb/Dockerfile \
 		./srcs/requirements/mariadb/conf/50-server.cnf \
-		./srcs/requirements/mariadb/tools/init.sql \
+		./srcs/requirements/mariadb/tools/init.sh \
 		./srcs/requirements/wordpress/Dockerfile \
 		./srcs/requirements/wordpress/script.sh \
-		./srcs/requirements/wordpress/conf/www.conf
+		./srcs/requirements/wordpress/conf/www.conf \
+		./srcs/.env 
 
 all : ${SRCS} create_volumes_repo
 			docker compose -f ./srcs/docker-compose.yml up -d --build

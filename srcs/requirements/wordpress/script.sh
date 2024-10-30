@@ -16,11 +16,10 @@ chmod +x wp-cli.phar
 ./wp-cli.phar core download --allow-root
 
 # Create the wp-config.php file
-./wp-cli.phar config create --allow-root --dbname=wordpress --dbuser=wpuser --dbpass=password --dbhost=mariadb
+./wp-cli.phar config create --allow-root --dbname=$MDB_NAME --dbuser=wpuser --dbpass=password --dbhost=mariadb
 
 # Install WordPress
 ./wp-cli.phar core install --url=localhost --title=inception --admin_user=admin --admin_password=admin --admin_email=admin@admin.com --allow-root
-
 
 # Start PHP-FPM
 php-fpm7.4 -F
