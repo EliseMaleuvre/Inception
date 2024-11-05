@@ -19,13 +19,14 @@ pid-file                = /run/mysqld/mysqld.pid
 basedir                 = /usr
 datadir                 = /var/lib/mysql
 tmpdir                  = /tmp
+socket                  = /run/mysqld/mysqld.sock
 
 # Broken reverse DNS slows down connections considerably and name resolve is
 # safe to skip if there are no "host by domain name" access grants
 #skip-name-resolve
 
 # Replaced localhost by mariadb, could also have desabled the bind address completely by commenting it
-bind-address            = mariadb
+bind-address            = 0.0.0.0
 
 #
 # * Fine Tuning
@@ -60,7 +61,7 @@ bind-address            = mariadb
 # and when running legacy init error logging goes to syslog due to
 # /etc/mysql/conf.d/mariadb.conf.d/50-mysqld_safe.cnf
 # Enable this if you want to have error logging into a separate file
-#log_error = /var/log/mysql/error.log
+log_error = /var/log/mysql/error.log
 # Enable the slow query log to see queries with especially long duration
 #log_slow_query_file    = /var/log/mysql/mariadb-slow.log
 #log_slow_query_time    = 10

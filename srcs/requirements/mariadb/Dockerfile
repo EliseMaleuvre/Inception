@@ -19,7 +19,7 @@ COPY tools/init.sh .
 RUN chmod +x ./init.sh
 
 # CREATE THE DIRECTORY FOR THE MYSQL SOCKET
-RUN mkdir /run/mysqld && chown -R mysql:mysql /run/mysqld
+RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 # REPLACE MYSQLD_SAFE COMMAND BY MYSQLD SO WE ACTUALLY HAVE MORE DEBUG INFORMATION
 CMD ["./init.sh"]

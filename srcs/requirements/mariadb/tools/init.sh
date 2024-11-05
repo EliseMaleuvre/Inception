@@ -1,14 +1,18 @@
 #!/bin/bash
 
-service mysql start;
-sleep 5;
-mysqladmin -u root -p $MDB_ROOT_PASSWORD;
+service mariadb start
+sleep 5
+mysqladmin -u root -p$MDB_ROOT_PASSWORD status 
 
-mysql -e "CREATE DATABASE IF NOT EXISTS $MDB_NAME;"
-mysql -e "CREATE USER IF NOT EXISTS 'wpuser'@'%' IDENTIFIED BY 'password';"
-mysql -e "GRANT ALL PRIVILEGES ON *.* TO 'wpuser'@'%' WITH GRANT OPTION;"
-mysql -e "FLUSH PRIVILEGES;"
+echo "CREATING DATABASE $MDB_NAME..."
+mysql -u root -p$MDB_ROOT_PASSWORD -e "CREATE DATABASE IF NOT EXISTS $MDB_NAME;"
+mysql -u root -p$MDB_ROOT_PASSWORD -e "CREATE USER IF NOT EXISTS '$MDB_RANDOM_USER'@'%' IDENTIFIED BY '$MDB_RANDOM_PASS';"
+mysql -u root -p$MDB_ROOT_PASSWORD -e "GRANT ALL PRIVILEGES ON *.* TO '$MDB_RANDOM_USER'@'%' WITH GRANT OPTION;"
+mysql -u root -p$MDB_ROOT_PASSWORD -e "FLUSH PRIVILEGES;"
+echo "DATABASE $MDB_NAME CREATED!"
 
-mysqladmin -u root -p $MDB_ROOT_PASSWORD shutdown;
+mysqladmin -u root -p$MDB_ROOT_PASSWORD shutdown 
 
-exec mysqld_safe;
+sleep 10
+
+exec mysqld_safe
